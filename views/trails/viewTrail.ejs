@@ -1,0 +1,42 @@
+<% layout("layouts/boilerplate"); %>
+
+<h1><%- trail.name %></h1>
+<h3><%- trail.loc %></h3>
+<img class="img-fluid w-75 my-3 d-flex mx-auto" src="<%- trail.img %>" alt="trail image">
+<p class="d-flex justify-content-between px-5 my-0 mx-5" style="font-size: 1.4rem;">
+    <span>Length: <%- trail.length %>mi</span>
+    <span>Rating: <%- trail.rating %><span style="font-size: 0.7em;"> /5</span></span>
+    <a href="/trails/<%- trail.id %>/edit"><button class="btn btn-success btn-sm">Edit</button></a>
+</p>
+<div class="col-8 offset-md-2">
+    <article class="my-3 w-100">
+        <p><%- trail.desc %></p>
+    </article>
+    <div class="mt-4 w-100">
+        <h4>Reviews (<%- trail.reviews.length %>)</h4>
+        <% for (let review of trail.reviews){ %>
+        <div class="border-top py-2">
+            <p class="mb-1" style="font-size: 1.3rem;"><%- review.title %> <span class="ms-3"><%- review.rating %></span><span style="font-size: 1rem;">/5</span></p>
+            <p class="mb-1"><%- review.body %></p>
+            <form action="/trails/<%- trail.id %>/reviews/<%- review.id %>?_method=DELETE" method="POST">
+                <input type="submit" class="btn btn-outline-danger btn-sm " value="Delete">
+            </form>
+        </div>
+        <% } %>
+    </div>
+    <div class="my-5">
+        <form action="/trails/<%- trail.id %>/reviews" method="POST" class="needs-validation" novalidate>
+            <h3>Leave a review</h3>
+            <label for="reviewTitleInput">Title</label>
+            <input type="text" class="form-control mb-2" id="reviewTitleInput" name="review[title]" required>
+
+            <label for="reviewRatingInput">Rate</label>
+            <input type="range" class="form-control mb-2" id="reviewRatingInput" name="review[rating]" max="5" step="1" required>
+
+            <label for="reviewBodyInput">Description (optional)</label>
+            <textarea class="form-control mb-2" id="reviewBodyInput" name="review[body]" rows="4"></textarea>
+
+            <input type="submit" class="btn btn-success" value="Submit">
+        </form>
+    </div>
+</div>

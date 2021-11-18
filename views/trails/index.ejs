@@ -1,0 +1,25 @@
+<% layout("layouts/boilerplate"); %>
+<!-- The above replaces the header footer partials.
+   layout(); tells EJS to wrap the layout passed in around this code. -->
+
+<h1>Trails List</h1>
+<% for (let trail of trailsList){ %>
+<a name="card" href="/trails/<%- trail._id %>" class="card mb-3 text-decoration-none text-dark">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="<%- trail.img %>" class="img-fluid rounded-start" alt="trail image">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <p class="mb-1" style="font-size: 1.5rem;"><%- trail.name %><span class="ms-3" style="font-size: 1.2rem;"><%- trail.length %>mi</span></p>
+                <h6 class="card-subtitle"><%- trail.loc %></h6>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod...</p>
+                <p class="d-flex justify-content-between m-0">
+                    <span>Rating: <%- trail.rating %><span style="font-size: 0.7em;"> /5</span></span>
+                    <span>More ></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</a>
+<% } %>
